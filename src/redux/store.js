@@ -2,6 +2,9 @@ import { createStore, combineReducers } from 'redux';
 import initialState from './initialState';
 import postsReducer from './postsRedux';
 
+// action creators 
+export const deletePost = payload => ({ type: 'DELETE_POST', payload});
+
 const subreducers = {
     posts: postsReducer,
 }
