@@ -9,26 +9,18 @@ const PostForm = props => {
     const [title, setTItle] = useState(props.title || '');
     const [author, setAuthor] = useState(props.author || ''); 
     const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
-    const [description, setDescription] = useState(props.description || '');
+    const [shortDescription, setShortDescription] = useState(props.description || '');
     const [content, setContent] = useState(props.content || '');
-
-
-    const dane = {
-        title,
-        author,
-        publishedDate,
-        description,
-        content
-    }
 
     const handleTitleChange = (e) => setTItle(e.target.value); // title
     const handleAuthorChange = (e) => setAuthor(e.target.value);
     const handlePublishedDateChange = (e) => setPublishedDate(e.target.value);
-    const handleDescriptionChange = (e) => setDescription(e.target.value);
+    const handleShortDescriptionChange = (e) => setShortDescription(e.target.value);
     const handleContentChange = (e) => setContent(e.target.value);
 
-    const handleAction = () => {
-        props.action({...dane});
+    const handleAction = e => {
+        e.preventDefault();
+        props.action({ title, author, publishedDate, shortDescription, content });
     }
     
 
@@ -52,13 +44,13 @@ const PostForm = props => {
                 {/* Published Date Field */}
                 <Form.Group controlId="formPublished">
                     <Form.Label>Published Date</Form.Label>
-                    <Form.Control type="date" value={publishedDate} onChange={handlePublishedDateChange} />
+                    <Form.Control type="text" value={publishedDate} onChange={handlePublishedDateChange} />
                 </Form.Group>
 
                 {/* Short Description Field */}
                 <Form.Group controlId="formShortDescription">
                     <Form.Label>Short Description</Form.Label>
-                    <Form.Control as="textarea" rows={3} placeholder="Enter a short description" value={description} onChange={handleDescriptionChange}/>
+                    <Form.Control as="textarea" rows={3} placeholder="Enter a short description" value={shortDescription} onChange={handleShortDescriptionChange}/>
                 </Form.Group>
 
                 {/* Main Content Field */}

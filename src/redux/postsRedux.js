@@ -17,6 +17,9 @@ const postsReducer = (statePart = [], action) => {
             return statePart.filter(post => post.id !== action.payload);
         case 'ADD_POST': 
             return [...statePart, {...action.payload, id: shortid()}];
+        case 'EDIT_POST':
+        console.log('action.payload.id', action.payload);
+         return statePart.map(post => (post.id === action.payload.id ? { ...post, ...action.payload } : post));
         default: 
             return statePart;
     };
