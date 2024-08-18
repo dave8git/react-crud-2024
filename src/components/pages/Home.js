@@ -12,15 +12,15 @@ const Home = props => {
         <>
             <Row className="align-items-center mb-4">
                 <Col>
-                    <h1>Home</h1>
+                    <h1 >Home</h1>
                 </Col>
-                <Col className="text-end">
+                <Col  className="text-end">
                     <Link to={`/post/add`}>
                         <Button variant="primary">Add Post</Button>
                     </Link>
                 </Col>
             </Row>
-            {posts.map(post => <MiniPost {...post} />)}
+            {posts.map(post => <MiniPost key={post.id} {...post} />)}
         </>
     );
 };

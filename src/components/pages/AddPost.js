@@ -20,7 +20,8 @@ const AddPost = props => {
         <>
             <h1>AddPost `${listId}`</h1>
             <h2 className="my-4">Create a New Post</h2>
-            <PostForm action={handleSubmit} actionText="Add post" />
+            <PostForm className="yellow" action={handleSubmit} actionText="Add post" />
+           
         </>
     );
 };

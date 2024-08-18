@@ -1,9 +1,10 @@
 import { useParams, Navigate, useNavigate } from 'react-router-dom/dist';
 import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
-const PostForm = (action, actionText, ...props) => {
-   
+const PostForm = props => {
+    console.log(123, props);
     const { listId } = useParams();
     const [title, setTItle] = useState(props.title || '');
     const [author, setAuthor] = useState(props.author || ''); 
@@ -11,14 +12,23 @@ const PostForm = (action, actionText, ...props) => {
     const [description, setDescription] = useState(props.description || '');
     const [content, setContent] = useState(props.content || '');
 
-    const handleTitleChange = (e) => setTItle(e.target.value);
+
+    const dane = {
+        title,
+        author,
+        publishedDate,
+        description,
+        content
+    }
+
+    const handleTitleChange = (e) => setTItle(e.target.value); // title
     const handleAuthorChange = (e) => setAuthor(e.target.value);
     const handlePublishedDateChange = (e) => setPublishedDate(e.target.value);
     const handleDescriptionChange = (e) => setDescription(e.target.value);
     const handleContentChange = (e) => setContent(e.target.value);
 
     const handleAction = () => {
-        action({...props});
+        props.action({...dane});
     }
     
 
@@ -59,11 +69,16 @@ const PostForm = (action, actionText, ...props) => {
 
                 {/* Add Post Button */}
                 <Button variant="primary" type="submit">
-                    {actionText}
+                    {props.actionText}
                 </Button>
             </Form>
         </>
     );
 };
+
+// PostForm.propTypes = {
+//     action: propTypes.func.isRequired, 
+//     actionText: propTypes.string,
+// }
 
 export default PostForm; 
