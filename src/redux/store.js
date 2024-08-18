@@ -4,6 +4,7 @@ import postsReducer from './postsRedux';
 
 // action creators 
 export const deletePost = payload => ({ type: 'DELETE_POST', payload});
+export const addPost = payload => ({ type: 'ADD_POST', payload });
 
 const subreducers = {
     posts: postsReducer,
