@@ -1,4 +1,8 @@
 const initialState = {
+    lalkibarbie: [
+        
+    ],
+
     posts: [
         {
             id: '1',

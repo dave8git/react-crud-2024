@@ -6,8 +6,8 @@ export const getPostById = ({ posts }, postId) => posts.find(post => post.id ===
 
 //actions
 const createActionName = actionName => `app/posts/${actionName}`;
-const DELETE_POST = createActionName('DELETE_POST');
-const ADD_POST = createActionName('ADD_POST');
+// const DELETE_POST = createActionName('DELETE_POST');
+// const ADD_POST = createActionName('ADD_POST');
 
 
 //action creators
