@@ -2,31 +2,35 @@ import { useParams, Navigate, useNavigate } from 'react-router-dom/dist';
 import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import { propTypes } from 'react-bootstrap/esm/Image';
+import { format } from 'date-fns';
+import ReactQuill from 'react-quill';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import 'react-quill/dist/quill.snow.css';
 
 const PostForm = props => {
     console.log(123, props);
-    const { listId } = useParams();
     const [title, setTItle] = useState(props.title || '');
     const [author, setAuthor] = useState(props.author || ''); 
-    const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
+    const [publishedDate, setPublishedDate] = useState(props.publishedDate ? new Date(props.publishedDate) : new Date());
     const [shortDescription, setShortDescription] = useState(props.description || '');
     const [content, setContent] = useState(props.content || '');
 
     const handleTitleChange = (e) => setTItle(e.target.value); // title
     const handleAuthorChange = (e) => setAuthor(e.target.value);
-    const handlePublishedDateChange = (e) => setPublishedDate(e.target.value);
+    const handlePublishedDateChange = (date) => setPublishedDate(date);
     const handleShortDescriptionChange = (e) => setShortDescription(e.target.value);
-    const handleContentChange = (e) => setContent(e.target.value);
+    const handleContentChange = (value) => setContent(value); // React Quill wymaga żeby przekazywany był jeden argument, e.target.value nie zadziała (tak jest obsługiwane przez komponent ReactQuill)
 
     const handleAction = e => {
         e.preventDefault();
-        props.action({ title, author, publishedDate, shortDescription, content });
+        const formattedDate = format(publishedDate, 'MM-dd-yyyy');
+        props.action({ title, author, publishedDate: formattedDate, shortDescription, content });
     }
     
 
     return (
         <>
-            <h1>PostForm `${listId}`</h1>
             <h2 className="my-4">Create a New Post</h2>
             <Form onSubmit={handleAction}>
                 {/* Title Field */}
@@ -44,7 +48,12 @@ const PostForm = props => {
                 {/* Published Date Field */}
                 <Form.Group controlId="formPublished">
                     <Form.Label>Published Date</Form.Label>
-                    <Form.Control type="text" value={publishedDate} onChange={handlePublishedDateChange} />
+                    {/* <Form.Control type="text" value={publishedDate} onChange={handlePublishedDateChange} /> */}
+                    <DatePicker 
+                        selected={publishedDate}
+                        onChange={handlePublishedDateChange}
+                        dateFormat="yyyy/MM/dd"
+                        />
                 </Form.Group>
 
                 {/* Short Description Field */}
@@ -56,7 +65,7 @@ const PostForm = props => {
                 {/* Main Content Field */}
                 <Form.Group controlId="formMainContent">
                     <Form.Label>Main Content</Form.Label>
-                    <Form.Control as="textarea" rows={20} placeholder="Enter the main content" value={content} onChange={handleContentChange} />
+                    <ReactQuill theme="snow" value={content} onChange={handleContentChange} />
                 </Form.Group>
 
                 {/* Add Post Button */}

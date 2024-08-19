@@ -53,7 +53,7 @@ const Post = props => {
 
                     </Row>
                     <Card.Subtitle className="mb-2 text-muted">{post.author} | {post.publishedDate}</Card.Subtitle>
-                    <Card.Text>{post.description}</Card.Text>
+                    <Card.Text dangerouslySetInnerHTML={{ __html: post.content }}>{post.description}</Card.Text>
                 </Card.Body>
             </Card>
         </>
