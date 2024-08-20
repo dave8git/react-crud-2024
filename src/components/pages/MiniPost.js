@@ -1,7 +1,7 @@
 import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const MiniPost = ({id, title, author, publishedDate, shortDescription}) => {
+const MiniPost = ({id, title, author, publishedDate, shortDescription, category}) => {
 
 
     return (
@@ -17,6 +17,9 @@ const MiniPost = ({id, title, author, publishedDate, shortDescription}) => {
                     </Card.Text>
                     <Card.Text>
                         {shortDescription}
+                    </Card.Text>
+                    <Card.Text>
+                        <b>Category:</b> {category}
                     </Card.Text>
                     <Link to={`/post/${id}`}>
                         <Button variant="primary">Read More</Button>

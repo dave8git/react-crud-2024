@@ -3,7 +3,20 @@ import shortid from 'shortid';
 //selectors
 export const getAllPosts = (state) => state.posts;
 export const getPostById = ({ posts }, postId) => posts.find(post => post.id === postId);
+export const getAllCategories = (state) => [...new Set(state.posts.map(post => post.category))];
+export const getPostsByCategory = ({ posts }, category) => [posts.find(post => post.category === category)];
+export const getUniqueObjects = ({posts}) => { // wyciąga unikalne obiekty 
+    const results = [];
+    posts.forEach(obj => {
+        const index = results.findIndex((item) => item.id === obj.id);
+        console.log(index);
+        if(index < 0) {
+            results.push(obj);
+        }
+    })
 
+    return results; 
+};
 //actions
 const createActionName = actionName => `app/posts/${actionName}`;
 // const DELETE_POST = createActionName('DELETE_POST');
@@ -18,9 +31,8 @@ const postsReducer = (statePart = [], action) => {
         case 'ADD_POST': 
             return [...statePart, {...action.payload, id: shortid()}];
         case 'EDIT_POST':
-        console.log('action.payload.id', action.payload);
          return statePart.map(post => (post.id === action.payload.id ? { ...post, ...action.payload } : post));
-        default: 
+         default: 
             return statePart;
     };
 };
